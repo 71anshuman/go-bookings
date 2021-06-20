@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/71anshuman/go-bookings/pkg/config"
-	"github.com/71anshuman/go-bookings/pkg/models"
-	"github.com/71anshuman/go-bookings/pkg/render"
+	config2 "github.com/71anshuman/go-bookings/internal/config"
+	models2 "github.com/71anshuman/go-bookings/internal/models"
+	render2 "github.com/71anshuman/go-bookings/internal/render"
 	"log"
 	"net/http"
 )
@@ -13,10 +13,10 @@ import (
 var Repo *Repository
 
 type Repository struct {
-	App *config.AppConfig
+	App *config2.AppConfig
 }
 
-func NewRepo(a *config.AppConfig) *Repository {
+func NewRepo(a *config2.AppConfig) *Repository {
 	return &Repository{
 		App: a,
 	}
@@ -27,23 +27,23 @@ func NewHandler(r *Repository) {
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w,r,  "home.page.tmpl",&models.TemplateData{})
+	render2.RenderTemplates(w,r,  "home.page.tmpl",&models2.TemplateData{})
 }
 
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w, r, "make-reservation.page.tmpl", &models.TemplateData{})
+	render2.RenderTemplates(w, r, "make-reservation.page.tmpl", &models2.TemplateData{})
 }
 
 func (m *Repository) Generals(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w,r,  "generals.page.tmpl", &models.TemplateData{})
+	render2.RenderTemplates(w,r,  "generals.page.tmpl", &models2.TemplateData{})
 }
 
 func (m *Repository) Majors(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w,r, "majors.page.tmpl", &models.TemplateData{})
+	render2.RenderTemplates(w,r, "majors.page.tmpl", &models2.TemplateData{})
 }
 
 func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w,r, "search-availability.page.tmpl", &models.TemplateData{})
+	render2.RenderTemplates(w,r, "search-availability.page.tmpl", &models2.TemplateData{})
 }
 
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
@@ -74,14 +74,14 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplates(w,r, "contact.page.tmpl", &models.TemplateData{})
+	render2.RenderTemplates(w,r, "contact.page.tmpl", &models2.TemplateData{})
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Test Hello About!!"
 
-	render.RenderTemplates(w,r, "about.page.tmpl", &models.TemplateData{
+	render2.RenderTemplates(w,r, "about.page.tmpl", &models2.TemplateData{
 		StringMap: stringMap,
 	})
 }

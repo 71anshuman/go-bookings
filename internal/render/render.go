@@ -3,8 +3,8 @@ package render
 import (
 	"bytes"
 	"fmt"
-	"github.com/71anshuman/go-bookings/pkg/config"
-	"github.com/71anshuman/go-bookings/pkg/models"
+	config2 "github.com/71anshuman/go-bookings/internal/config"
+	models2 "github.com/71anshuman/go-bookings/internal/models"
 	"github.com/justinas/nosurf"
 	"html/template"
 	"log"
@@ -14,18 +14,18 @@ import (
 
 var functions = template.FuncMap{}
 
-var app *config.AppConfig
+var app *config2.AppConfig
 
-func NewTemplate(a *config.AppConfig) {
+func NewTemplate(a *config2.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+func AddDefaultData(td *models2.TemplateData, r *http.Request) *models2.TemplateData {
 	td.CSRFToken = nosurf.Token(r)
 	return td
 }
 
-func RenderTemplates(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
+func RenderTemplates(w http.ResponseWriter, r *http.Request, tmpl string, td *models2.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
 		tc = app.TemplateCache
