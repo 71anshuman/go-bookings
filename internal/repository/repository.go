@@ -1,5 +1,5 @@
-package main
+package repository
 
-func main() {
-	$END$
+type DatabaseRepo interface {
+
 }

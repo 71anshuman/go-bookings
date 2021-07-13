@@ -3,6 +3,13 @@ package handlers
 import (
 	"encoding/gob"
 	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
+	"time"
+
 	"github.com/71anshuman/go-bookings/internal/config"
 	"github.com/71anshuman/go-bookings/internal/models"
 	"github.com/71anshuman/go-bookings/internal/render"
@@ -10,11 +17,6 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/justinas/nosurf"
-	"html/template"
-	"log"
-	"net/http"
-	"path/filepath"
-	"time"
 )
 
 var app config.AppConfig
@@ -43,9 +45,15 @@ func getRoutes() http.Handler {
 	app.TemplateCache = tc
 	app.UseCache = true
 
+	infoLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
+
 	repo := NewRepo(&app)
 	NewHandler(repo)
-	render.NewTemplate(&app)
+	render.NewRenderer(&app)
 
 	mux := chi.NewRouter()
 
@@ -123,4 +131,3 @@ func CreateTestTemplateCache() (map[string]*template.Template, error) {
 	}
 	return myCache, nil
 }
-

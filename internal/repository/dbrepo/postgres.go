@@ -1,5 +1,5 @@
-package main
+package dbrepo
 
-func main() {
-	$END$
+func (m *postgresDBRepo) AllUsers() bool {
+	return true
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/71anshuman/go-bookings/internal/config"
 	"github.com/71anshuman/go-bookings/internal/models"
 	"github.com/alexedwards/scs/v2"
+	"log"
 	"net/http"
 	"os"
 	"testing"
@@ -19,6 +20,12 @@ func TestMain(m *testing.M) {
 	gob.Register(models.Reservation{})
 
 	testApp.InProd = true
+
+	infoLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime)
+	testApp.InfoLog = infoLog
+
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	testApp.ErrorLog = errorLog
 
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
