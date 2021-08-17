@@ -40,12 +40,12 @@ func TestRenderTemplates(t *testing.T) {
 
 	ww := myWriter{}
 
-	err = RenderTemplates(&ww, r, "home.page.tmpl", &models.TemplateData{})
+	err = Template(&ww, r, "home.page.tmpl", &models.TemplateData{})
 	if err != nil {
 		t.Error("Error writing template to writer")
 	}
 
-	err = RenderTemplates(&ww, r, "not-exist.page.tmpl", &models.TemplateData{})
+	err = Template(&ww, r, "not-exist.page.tmpl", &models.TemplateData{})
 	if err == nil {
 		t.Error("Error writing template to writer")
 	}
@@ -72,4 +72,8 @@ func getSession() (*http.Request, error) {
 	r = r.WithContext(ctx)
 
 	return r, nil
+}
+
+func TestNewTemplates(t *testing.T) {
+	NewRenderer(app)
 }

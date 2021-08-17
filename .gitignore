@@ -1,3 +1,7 @@
 .idea
 .DS_Store
 database.yml
+
+*./pkg/*
+
+cmd/web/main/

@@ -2,9 +2,11 @@ package main
 
 import (
 	"encoding/gob"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/71anshuman/go-bookings/internal/driver"
@@ -43,6 +45,12 @@ func main() {
 }
 
 func run() (*driver.DB, error) {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+
 	// what am I going to put in the session
 	gob.Register(models.Reservation{})
 	gob.Register(models.User{})
@@ -67,7 +75,7 @@ func run() (*driver.DB, error) {
 
 	// connect to database
 	log.Println("Connecting to database")
-	db, err := driver.ConnectSQL("host=localhost port=5432 user=anshumanlawania password=")
+	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=anshumanlawania password=")
 	if err != nil {
 		log.Fatal("Cannot connect to DB!!")
 	}
