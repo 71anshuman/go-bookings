@@ -369,7 +369,7 @@ func TestRepository_AvailabilityJSON(t *testing.T) {
 	if err != nil {
 		t.Error("Failed to parse JSON")
 	}
-	log.Println(j)
+
 	if j.Message != "Error connecting to my DB" {
 		t.Error("Error connecting to my DB:it should be fail and its passed")
 	}
