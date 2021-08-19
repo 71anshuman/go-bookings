@@ -42,7 +42,7 @@ func (m *testDBRepo) SearchAvailabilityByDatesByRoomID(start, end *time.Time, ro
 		log.Println(err)
 	}
 
-	if start == &testDateToFail {
+	if start.String() == testDateToFail.String() {
 		return false, errors.New("some error")
 	}
 
