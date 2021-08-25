@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -158,8 +157,6 @@ func (m *Repository) PostClear(w http.ResponseWriter, r *http.Request) {
 		helpers.ServerError(w, err)
 		return
 	}
-
-	fmt.Println(r)
 
 	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
 }

@@ -212,7 +212,6 @@ func TestRepository_PostReservation(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 	if rr.Code != http.StatusOK {
-		fmt.Println(rr.Result())
 		t.Errorf("PostReservation handler returned wrong response code: got %d, wanted %d", rr.Code, http.StatusOK)
 	}
 
@@ -558,7 +557,7 @@ func TestRepository_AvailabilityJSON(t *testing.T) {
 	handler.ServeHTTP(rr, req)
 
 	var j jsonResponse
-	err := json.Unmarshal([]byte(rr.Body.String()), &j)
+	err := json.Unmarshal([]byte(rr.Body.Bytes()), &j)
 
 	if err != nil {
 		t.Error("Failed to parse JSON")
@@ -586,7 +585,7 @@ func TestRepository_AvailabilityJSON(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	err = json.Unmarshal([]byte(rr.Body.String()), &j)
+	err = json.Unmarshal([]byte(rr.Body.Bytes()), &j)
 
 	if err != nil {
 		t.Error("Failed to parse JSON")
@@ -614,7 +613,7 @@ func TestRepository_AvailabilityJSON(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	err = json.Unmarshal([]byte(rr.Body.String()), &j)
+	err = json.Unmarshal([]byte(rr.Body.Bytes()), &j)
 
 	if err != nil {
 		t.Error("Failed to parse JSON")
